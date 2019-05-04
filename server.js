@@ -1,6 +1,5 @@
-require('dotenv').config();
 const express = require('express');
-const assert = require('assert');
+const exphbs  = require('express-handlebars');
 const app = express();
 const port = 3000;
 const routes = require('./routes/routes.js');
@@ -10,8 +9,13 @@ const bodyParser = require('body-parser');
 // Connect to database
 MongoConnector.initDb();
 
+// Initialize template engine
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
 // Middlewares
 app.use(bodyParser.json());
+app.use(express.urlencoded());
 app.use('/', routes);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

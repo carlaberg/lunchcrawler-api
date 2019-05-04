@@ -1,17 +1,21 @@
 const MongoConnector = require('../libs/Mongo');
+const Todo = require('../models/Todo');
 
-exports.getAll = ( req, res, next ) => {
-    MongoConnector.getDb().collection('todos').find({}).toArray((err, result) => {
-        if (err) {
-            res.status(400).send({'error': err});
-            console.log();
-        } else if (result === undefined || result.length === 0) {
-            res.status(400).send({'error':'No todos in database'})
-        } else {
-            res.status(200).send(result);
-        }
-    });
-}
+exports.getAll = (req, res, next) => {
+    MongoConnector.getDb()
+        .collection('todos')
+        .find({})
+        .toArray((err, result) => {
+            if (err) {
+                res.status(400).send({ error: err });
+                console.log();
+            } else if (result === undefined || result.length === 0) {
+                res.status(400).send({ error: 'No todos in database' });
+            } else {
+                res.status(200).render('all-todos', { todos: result });
+            }
+        });
+};
 
 // router.get('/todos/:id', (req, res, next) => {
 //   req.app.locals.db.collection('documents').findOne({
@@ -27,17 +31,30 @@ exports.getAll = ( req, res, next ) => {
 //     }
 //   })
 // })
-//
+
+exports.postItem = (req, res, next) => {
+    const newTodo = new Todo(
+        req.body.title,
+        req.body.username,
+        req.body.content
+    );
+    MongoConnector.getDb()
+        .collection('todos')
+        .insertOne(
+            {
+                newTodo
+            },
+            (err, result) => {
+                if (err) {
+                    res.status(400).send({ error: err });
+                }
+                res.status(200).send(result);
+            }
+        );
+};
+
 // router.post('/todos/new', (req, res, next) => {
-//   const newDocument = new Document(req.body.title, req.body.username, req.body.body)
-//   req.app.locals.db.collection('documents').insertOne({
-//     newDocument
-//   }, (err, result) => {
-//     if (err) {
-//       res.status(400).send({'error': err})
-//     }
-//     res.status(200).send(result)
-//   })
+
 // })
 //
 // router.delete('/todos/delete/:id', (req, res, next) => {
