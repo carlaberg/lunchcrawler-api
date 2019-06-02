@@ -4,17 +4,15 @@ const MongoClient = require('mongodb').MongoClient;
 
 const MongoConnector = () => {
 
-    const url = 'mongodb://localhost:27017/node-mongo-docker';
+    const url = 'mongodb://localhost:27017/lunchcrawler-api';
 
     let dbInstance = {};
 
     function initDb() {
         MongoClient.connect(url, function(err, database) {
           assert.equal(null, err);
-          dbInstance = database.db('node-mongo-docker');
+          dbInstance = database.db('lunchcrawler-api');
           console.log("Connected successfully to server");
-
-          // database.close();
         });
     }
 
