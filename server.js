@@ -36,5 +36,5 @@ app.use('/', routes);
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-// pinnen rambergs gryta
+// pinnen rambergs gryta med körv
 module.exports = app;
