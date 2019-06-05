@@ -3,7 +3,7 @@ const router = express.Router();
 const lunchController = require('../controllers/lunchController');
 
 router.get('/', (req, res) => {
-    res.status(200).send('Hello Lunch today');
+    res.status(200).send('Hello Lunch today now i have automated deploys');
 });
 router.get('/lunches', lunchController.getAll);
 router.get('/fetch-lunches', lunchController.crawl);
