@@ -7,6 +7,7 @@ const { crawl } = require('./libs/LunchCrawler');
 const bodyParser = require('body-parser');
 const lunchController = require('./controllers/lunchController');
 const cron = require('node-cron');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 // Connect to database
 MongoConnector.initDb();
