@@ -1,20 +1,20 @@
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
 
-const {
-    NODE_ENV,
-    MONGO_USERNAME,
-    MONGO_PASSWORD,
-    MONGO_HOSTNAME,
-    MONGO_PORT,
-    MONGO_DB
-} = process.env;
-
 const MongoConnector = () => {
-    let url = setConnectionString();
+    
     let dbInstance = {};
     
     function setConnectionString() {
+        const {
+            NODE_ENV,
+            MONGO_USERNAME,
+            MONGO_PASSWORD,
+            MONGO_HOSTNAME,
+            MONGO_PORT,
+            MONGO_DB
+        } = process.env;
+        
         // Connect to mongodb without authentication in development
         if ( process.env.NODE_ENV == 'development') {
             return `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
@@ -24,6 +24,8 @@ const MongoConnector = () => {
     }
 
     function initDb() {
+        const url = setConnectionString();
+        
         MongoClient.connect(url, function(err, database) {
           assert.equal(null, err);
           dbInstance = database.db('lunchcrawler-api');
