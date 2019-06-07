@@ -37,5 +37,5 @@ cron.schedule('0-59 * * * *', async () => {
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-// Bing bong
+
 module.exports = app;
