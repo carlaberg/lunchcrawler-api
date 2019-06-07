@@ -19,7 +19,7 @@ const LunchCrawler = () => {
             console.error(e.message);
         }
     }
-    
+
     async function getLunches(html) {
         try {
             const $ = cheerio.load(html);

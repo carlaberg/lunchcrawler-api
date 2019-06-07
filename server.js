@@ -18,8 +18,7 @@ app.use(bodyParser.json());
 app.use('/', routes);
 
 // Fetch lunches 08:00 mon - fri with cron job
-// 0 8 * * 1-5
-cron.schedule('0-59 * * * *', async () => {
+cron.schedule('0 8 * * 1-5', async () => {
     const lunches = await crawl();
     const db = MongoConnector.getDb();
 
