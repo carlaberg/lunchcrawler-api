@@ -9,30 +9,31 @@ const lunchController = require('./controllers/lunchController');
 const cron = require('node-cron');
 
 // Connect to database
-// MongoConnector.initDb();
+MongoConnector.initDb();
 
 // Middlewares
 app.use(bodyParser.json());
 app.use('/', routes);
 
 // Fetch lunches 08:00 mon - fri with cron job
-// cron.schedule('0 8 * * 1-5', async () => {
-//     const lunches = await crawl();
-//     const db = MongoConnector.getDb();
-// 
-//     const result = await db.collection('lunches').remove();
-// 
-//     db.collection('lunches')
-//     .insertMany([...lunches],
-//         (err, result) => {
-//             if (err) {
-//                 console.error(err);
-//             }
-//             console.log('Lunches successfully saved to database');
-//         }
-//     );
-// 
-// });
+// 0 8 * * 1-5
+cron.schedule('0-59 * * * *', async () => {
+    const lunches = await crawl();
+    const db = MongoConnector.getDb();
+
+    const result = await db.collection('lunches').remove();
+
+    db.collection('lunches')
+    .insertMany([...lunches],
+        (err, result) => {
+            if (err) {
+                console.error(err);
+            }
+            console.log('Lunches successfully saved to database');
+        }
+    );
+
+});
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
