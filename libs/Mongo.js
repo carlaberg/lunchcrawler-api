@@ -12,6 +12,8 @@ const {
 } = process.env;
 
 const MongoConnector = () => {
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.MONGO_USERNAME);
     let url = setConnectionString();
     let dbInstance = {};
     
