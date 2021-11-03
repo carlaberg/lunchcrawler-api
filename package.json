@@ -19,7 +19,7 @@
     "mongodb": "^2.2.36",
     "node-cron": "^2.0.3",
     "node-fetch": "^2.5.0",
-    "validator": "^11.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
